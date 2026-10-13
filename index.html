@@ -1,0 +1,180 @@
+```html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پریز حسین کلیکر</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #151515;
+    color: white;
+    font-family: Tahoma, sans-serif;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game {
+    width: 92%;
+    max-width: 600px;
+    padding: 28px;
+    background: #242424;
+    border: 2px solid #ff7900;
+    border-radius: 20px;
+    box-shadow: 0 0 25px #ff790033;
+}
+
+h1 {
+    color: #ff8500;
+    font-size: 30px;
+}
+
+.stats {
+    display: flex;
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.stat {
+    flex: 1;
+    background: #333;
+    padding: 15px 5px;
+    border-radius: 12px;
+}
+
+.number {
+    display: block;
+    color: #ff9800;
+    font-size: 28px;
+    margin-top: 8px;
+}
+
+#target {
+    width: 230px;
+    height: 230px;
+    max-width: 80%;
+    margin: 25px auto;
+    border: 5px solid #ff8500;
+    border-radius: 50%;
+    background: radial-gradient(circle, #464646, #191919);
+    color: #ff8500;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    transition: transform 0.08s, background 0.1s;
+    box-shadow: 0 0 25px #ff850044;
+}
+
+#target:active {
+    transform: scale(0.93);
+    background: #56300e;
+}
+
+button.reset {
+    padding: 13px 28px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #ff4b16, #ffae26);
+    color: #171717;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hint {
+    color: #aaa;
+    font-size: 13px;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+<div class="game">
+    <h1>پریز حسین کلیکر</h1>
+    <p>روی هدف کلیک کن و امتیاز جمع کن!</p>
+
+    <div class="stats">
+        <div class="stat">
+            امتیاز
+            <span class="number" id="score">0</span>
+        </div>
+        <div class="stat">
+            تعداد کلیک
+            <span class="number" id="clicks">0</span>
+        </div>
+    </div>
+
+    <div id="target" role="button" tabindex="0"
+         aria-label="پریز حسین">
+        پریز حسین
+    </div>
+
+    <p id="message">بزن بریم!</p>
+
+    <button class="reset" onclick="resetGame()">
+        شروع دوباره
+    </button>
+
+    <p class="hint">هر کلیک = یک امتیاز</p>
+</div>
+
+<script>
+let score = 0;
+let clicks = 0;
+
+const target = document.getElementById("target");
+
+function clickTarget() {
+    score++;
+    clicks++;
+
+    document.getElementById("score").textContent = score;
+    document.getElementById("clicks").textContent = clicks;
+
+    document.getElementById("message").textContent =
+        score % 50 === 0
+        ? "۵۰ امتیاز دیگه! ادامه بده!"
+        : "آفرین! امتیاز گرفتی!";
+
+    target.style.transform = "scale(0.93)";
+
+    setTimeout(() => {
+        target.style.transform = "scale(1)";
+    }, 80);
+}
+
+target.addEventListener("click", clickTarget);
+
+target.addEventListener("keydown", function(event) {
+    if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        clickTarget();
+    }
+});
+
+function resetGame() {
+    score = 0;
+    clicks = 0;
+
+    document.getElementById("score").textContent = 0;
+    document.getElementById("clicks").textContent = 0;
+    document.getElementById("message").textContent = "بزن بریم!";
+}
+</script>
+</body>
+</html>
+```
